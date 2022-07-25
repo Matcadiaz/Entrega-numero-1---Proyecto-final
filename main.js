@@ -17,15 +17,24 @@ let listaCiudades = [];
 class informacion {
     
     constructor (ciudad, temMax, temMin, hum){
-       
         this.ciudad = ciudad; 
         this.temMax = temMax;
         this.temMin = temMin;
         this.hum = hum;
     }
-    
-    restoInformacion(){
-         return `${this.ciudad}: \nLa temperatura maxima es ${this.temMax}.\nLa tempertaura minima es ${this.temMin}.\nLa humadad ambiente es del ${this.hum}`;
+
+    restoInformacionHtml(){
+        let ubicacion = document.getElementById("ubi");
+        ubicacion.innerHTML= this.ciudad;
+
+        let tempMax = document.getElementById("temMax");
+        tempMax.innerHTML = this.temMax;
+        
+        let tempMin = document.getElementById("temMin");
+        tempMin.innerHTML = this.temMin;
+
+        let humedad = document.getElementById("hum");
+        humedad.innerHTML = this.hum;
     }
 
 }
@@ -34,37 +43,32 @@ class informacion {
 // Una vez realizado el constructor con su clase, procedemos a ingresar los datos para cargar nuestro array.
 
 
-listaCiudades.push(new informacion("moreno","34°C", "-1°C","90%"));
-listaCiudades.push(new informacion("paso del rey","34°C", "0°C","91%"));
-listaCiudades.push(new informacion("merlo","35°C", "2°C","93%"));
-listaCiudades.push(new informacion("ituzaingo","35°C", "3°C","91%"));
-listaCiudades.push(new informacion("moron","38°C", "4°C","90%"));
-listaCiudades.push(new informacion("ramos mejia","38°C", "3°C","93%"));
-listaCiudades.push(new informacion("ciudadela","40°C", "4°C","95%"));
-listaCiudades.push(new informacion("liniers","41°C", "4°C","96%"));
-listaCiudades.push(new informacion("villa luro","39°C", "3°C","97%"));
-listaCiudades.push(new informacion("caballito","40°C", "3°C","98%"));
-listaCiudades.push(new informacion("caba","42°C", "5°C","99%"));
+listaCiudades.push(new informacion("moreno","34", "15","90"));
+listaCiudades.push(new informacion("paso del rey","34", "17","91"));
+listaCiudades.push(new informacion("merlo","35", "18","93"));
+listaCiudades.push(new informacion("ituzaingo","35", "18","91"));
+listaCiudades.push(new informacion("moron","38", "20","90"));
+listaCiudades.push(new informacion("ramos mejia","38", "23","93"));
+listaCiudades.push(new informacion("ciudadela","40", "24","95"));
+listaCiudades.push(new informacion("liniers","41", "24","96"));
+listaCiudades.push(new informacion("villa luro","39", "23","97"));
+listaCiudades.push(new informacion("caballito","40", "23","98"));
+listaCiudades.push(new informacion("caba","42", "25","99"));
 
 // A partir de acá, nuestro programa mostrará en una lista, las ciudades disponibles a ingresar en la búsqueda para que me devuelva la información sobre la misma. Los datos a devolver son las temperaturas máximas, minimas, la humedad y el nombre de la ciudad seleccionada. Mediante las funciones que definiremos a continuación, armaremos nuestro ciclo para que comience a iterar.
 
 function listarCiudades(){ 
-
     return listaCiudades.map((c,i) => `${i}-${c.ciudad} \n`).reduce((acumulador,elemento) => acumulador.concat(elemento),"")
 } //--------- con esta función generamos un listado de ciudades válidas para que el usuario pueda ingresar en la búsqueda.
 
 
 function buscarCiudad(ciudad){
-
     return listaCiudades.find((info) => info.ciudad === ciudad);
-
 }  //--------esta función nos búscara una de las ciudades ingresadas en el prompt y me devolverá si existe o no!
 
 
 function pedirCiudad(){
-    
-    let ciudad = prompt(`Ingrese una de las ciudades válidas \n ${listarCiudades()}`).toLocaleLowerCase();
-    
+    let ciudad = prompt(`Ingrese una de las ciudades válidas \n ${listarCiudades()}`).toLocaleLowerCase(); 
     while (ciudad == "") {
         alert(`Por favor ingrese una ciudad`);
         ciudad = prompt(`Ingrese una de las ciudades válidas \n ${listarCiudades()}`).toLocaleLowerCase();
@@ -72,6 +76,11 @@ function pedirCiudad(){
 
     return ciudad;
 } // Mediante la función pedirCiudad, podremos evaluar que la ciudad ingresada sea distinta de un campo vacio. En el caso de estar vacío, se le informará que ingrese una de las ciudades válidas y le mostrará el listado una vez mas. 
+
+
+function mostrarCiudad(ciudad){
+    let mostrarInfo = `${resultadoBuscar.restoInformacionHtml()}`;
+}
 
 let respuesta = "si";  
 let resultadoBuscar;
@@ -84,22 +93,15 @@ while (respuesta != "no"){
     resultadoBuscar = buscarCiudad(ciudad);
     
     if (resultadoBuscar == undefined){
-
         alert(`Esta ciudad no existe, ingrese una ciudad de la lista`);
-    
     } else {
-
-        alert(`${resultadoBuscar.restoInformacion()}`);  
+        mostrarCiudad(resultadoBuscar);
         respuesta = prompt(`Quiere realizar otra búsqueda?. Respuesta válida SI - NO`).toLocaleLowerCase();
-        
         while ((respuesta != "si") && (respuesta != "no")) {
             alert(`Ingrese SI o NO`);
             respuesta = prompt(`Desea realizar otra búsqueda?, ingrese "SI" o "NO"`);
         }
-
     }
-
-
 } alert(`¡Muchas gracias por usar la aplicación, que tenga un hermoso día!`);
 
 // Como podemos ver, el ciclo se inicia mientras la variable respuesta sea distinto de no, y como se presetea con el valor "si", el mismo comienza. Llamamos a la función pedirCiudad(), la cual el resultado será almacenado en la variable ciudad. Esta misma la evaluaremos en la siguiente función buscarCiudad(ciudad) para almacenar el resultado en otra variable. 

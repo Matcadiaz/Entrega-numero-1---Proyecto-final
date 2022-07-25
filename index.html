@@ -7,20 +7,55 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Nunito:wght@300&family=Roboto:ital@0;1&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="./css/style.css">
     <title>Weather app</title>
 </head>
 <body>
-    <section class="contenedor">
-        <div class="contenedor__formulario">
-            <h1>Weather app</h1>
-            <form class="formulario">
-                <p class="info">Ingrese una ciudad válida</p>
-                <input type="text" placeholder="Elije una ciudad">
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
-    </section>
+    <div class="wrapper active"> 
+        <h1><i class="bx bx-left-arrow-alt"></i>Weather app</h1>
+        <section class="contenedor" id="section" >
+            <div class="contenedor__formulario">
+                <form class="formulario">
+                    <p class="validar">Ingrese una ciudad válida</p>
+                    <input type="text" placeholder="Ingrese una ciudad" spellcheck="false" required>
+                    <button type="submit">Enviar</button>
+                </form> 
+            </div>
+        </section>
+
+        <section class="parte-clima">
+            <img src="/icons/clear.svg" alt="icono de clima"> 
+            <div class="temperatura">
+                <span class="numero" id="temMax"></span>
+                <span class="grados">°</span>C
+            </div> 
+            <div class="clima">Temperatura Max.</div>
+            <div class="ubicacion">
+                <i class="bx bx-map"></i>
+                <span id="ubi"></span>
+            </div>
+            <div class="fondo">
+                <div class="columna sensacion">
+                    <i class="bx bxs-thermometer"></i>
+                    <div class="details">
+                        <div class="temperatura">
+                            <span class="numero" id="temMin"></span>
+                            <span class="grados">°</span>C
+                        </div>
+                        <p>Temperatura Min.</p> 
+                    </div>
+                </div>
+                <div class="columna humedad">
+                    <i class="bx bxs-droplet-half"></i>
+                    <div class="details">
+                        <span class="numero" id="hum"></span>%
+                        <p>Humedad</p> 
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
