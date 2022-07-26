@@ -1,15 +1,4 @@
-/*
-Para nuestro desafio vamos a crear una array de objetos en donde contenga información de: 
-
-    -Ciudades
-    -Temperatura Maxima
-    -Temperatura Minima
-    -Humedad relativa
-
-Luego, crearemos un constructor que nos permita ingresar los datos de cualquier ciudad y de manera mas sencilla, poder agregarlos al array.  
-*/ 
-
-//Primero vamos a crear nuestro array
+//Tomamos el codigo anterior y le realizamos las modificaciones pertinentes relacionadas a los distintos eventos!
 
 let listaCiudades = [];
 
@@ -40,7 +29,7 @@ class informacion {
 }
 
 
-// Una vez realizado el constructor con su clase, procedemos a ingresar los datos para cargar nuestro array.
+
 
 
 listaCiudades.push(new informacion("moreno","34", "15","90"));
@@ -55,7 +44,9 @@ listaCiudades.push(new informacion("villa luro","39", "23","97"));
 listaCiudades.push(new informacion("caballito","40", "23","98"));
 listaCiudades.push(new informacion("caba","42", "25","99"));
 
-// A partir de acá, nuestro programa mostrará en una lista, las ciudades disponibles a ingresar en la búsqueda para que me devuelva la información sobre la misma. Los datos a devolver son las temperaturas máximas, minimas, la humedad y el nombre de la ciudad seleccionada. Mediante las funciones que definiremos a continuación, armaremos nuestro ciclo para que comience a iterar.
+
+
+// ---- FUNCIONES------//
 
 function listarCiudades(){ 
     return listaCiudades.map((c,i) => `${i}-${c.ciudad} \n`).reduce((acumulador,elemento) => acumulador.concat(elemento),"")
@@ -67,47 +58,59 @@ function buscarCiudad(ciudad){
 }  //--------esta función nos búscara una de las ciudades ingresadas en el prompt y me devolverá si existe o no!
 
 
-function pedirCiudad(){
-    let ciudad = prompt(`Ingrese una de las ciudades válidas \n ${listarCiudades()}`).toLocaleLowerCase(); 
-    while (ciudad == "") {
-        alert(`Por favor ingrese una ciudad`);
-        ciudad = prompt(`Ingrese una de las ciudades válidas \n ${listarCiudades()}`).toLocaleLowerCase();
+function pedirCiudad(){ //se ha modificado la función mediante evento para que al ingresar por el campo input, la misma evalue que no sea un campo vacío o que se ingrese mediante mayusculas. 
+    let input = document.getElementById("input");
+    if (input.value !== ""){
+        return input.value.toLowerCase();
+    } else {
+        alert(`Ingrese una ciudad valida`);
     }
-
-    return ciudad;
-} // Mediante la función pedirCiudad, podremos evaluar que la ciudad ingresada sea distinta de un campo vacio. En el caso de estar vacío, se le informará que ingrese una de las ciudades válidas y le mostrará el listado una vez mas. 
-
+} 
 
 function mostrarCiudad(ciudad){
     let mostrarInfo = `${resultadoBuscar.restoInformacionHtml()}`;
 }
 
-let respuesta = "si";  
-let resultadoBuscar;
-let ciudad;
+function cambiarPantalla(){
+    let wrapper = document.querySelector(".wrapper");
+    wrapper.classList.toggle("active");
+} //Generamos esta función para que nos realice el cambio de pantalla en cuanto sea llamada. La misma se ejecutará cuando se ingrese la ciudad mediante input y el boton de enviar realice el cambio de pantalla mostrando la información pedida. 
 
-while (respuesta != "no"){
-    
-    ciudad = pedirCiudad();
-    
-    resultadoBuscar = buscarCiudad(ciudad);
-    
-    if (resultadoBuscar == undefined){
-        alert(`Esta ciudad no existe, ingrese una ciudad de la lista`);
-    } else {
-        mostrarCiudad(resultadoBuscar);
-        respuesta = prompt(`Quiere realizar otra búsqueda?. Respuesta válida SI - NO`).toLocaleLowerCase();
-        while ((respuesta != "si") && (respuesta != "no")) {
-            alert(`Ingrese SI o NO`);
-            respuesta = prompt(`Desea realizar otra búsqueda?, ingrese "SI" o "NO"`);
+//---EVENTOS----//
+
+//mediante las funciones anteriormente definidas, armamos los eventos que se ejecutarán en cuanto se ingrese una ciudad válida.
+
+/*---- 1 ----*/  
+
+//el primer código realizará toda la búsqueda relacionada a la ciudad ingresada y arrojará los datos en la pantalla.
+ 
+let submit = document.getElementById("submit");
+submit.addEventListener("click", (e)=>{
+        e.preventDefault();
+        let resultado = pedirCiudad();
+        if (resultado == undefined){
+            return
+        } else {
+            let ciudad = buscarCiudad(resultado);
+            if (ciudad == undefined){
+                return alert(`No se encontró esa ciudad`);
+            } else{
+                ciudad.restoInformacionHtml();
+                cambiarPantalla();
+            }
         }
-    }
-} alert(`¡Muchas gracias por usar la aplicación, que tenga un hermoso día!`);
+    })
 
-// Como podemos ver, el ciclo se inicia mientras la variable respuesta sea distinto de no, y como se presetea con el valor "si", el mismo comienza. Llamamos a la función pedirCiudad(), la cual el resultado será almacenado en la variable ciudad. Esta misma la evaluaremos en la siguiente función buscarCiudad(ciudad) para almacenar el resultado en otra variable. 
-// Creamos un if para evaluar si la ciudad que se ingreso sea alguna de las que se encuentra en la lista y no fuera de ella, ya que al ser una que no se encuentre se le avisará que esa ciudad no existe y por ende, se cierra el if y vuelve a entrar por el while y vuelve a comenzar el ciclo. 
-// Por otro lado, en caso de ser una ciudad que existe, mostrará los datos pertinentes y preguntará si desea realizar otra búsqueda. Si responde SI, comienza el ciclo otra vez y se procesa todo lo anterior mencionado. En caso de seleccionar no, el ciclo se cierra y se le deseara que tenga un dia hermoso!. 
+/*---- 2 ----*/
+// El segundo código permitirá que la flecha que se encuentra al costado del título permita volver hacia atrás y realizar una nueva búsqueda.
 
-// Por último, evaluamos que la repuesta de ,"si desea realizar otra búsqueda" no alguna de las respuestas aceptables, le volverá a pedir que ingrese alguna respuesta válida. 
+let arrow = document.getElementById("arrow");
+arrow.addEventListener("click", cambiarPantalla);
 
+
+
+
+
+
+   
 

@@ -12,14 +12,14 @@
     <title>Weather app</title>
 </head>
 <body>
-    <div class="wrapper active"> 
-        <h1><i class="bx bx-left-arrow-alt"></i>Weather app</h1>
+    <div class="wrapper"> 
+        <h1><i class="bx bx-left-arrow-alt" id="arrow"></i>Weather app</h1>
         <section class="contenedor" id="section" >
             <div class="contenedor__formulario">
                 <form class="formulario">
                     <p class="validar">Ingrese una ciudad válida</p>
-                    <input type="text" placeholder="Ingrese una ciudad" spellcheck="false" required>
-                    <button type="submit">Enviar</button>
+                    <input type="text" id="input" placeholder="Ingrese una ciudad" spellcheck="false" required>
+                    <button type="button" id="submit">Enviar</button>
                 </form> 
             </div>
         </section>
