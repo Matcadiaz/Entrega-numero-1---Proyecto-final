@@ -73,8 +73,3 @@ arrow.addEventListener("click", cambiarPantalla);
 
 
 
-
-
-
-   
-
