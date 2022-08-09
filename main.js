@@ -19,7 +19,7 @@ function buscarCiudad(ciudad){
 
 function pedirCiudad(){ 
     let input = document.getElementById("input");
-    return input.value !== "" ? input.value.toLowerCase() : alert(`Ingrese una ciudad valida`); //modificamos la estrucutra convencional del "if" a una sintaxis mas reducida, reduciendo líneas de código y mejorando la legibilidad. 
+    return input.value !== "" ? input.value.toLowerCase() : mostrarToast(`INGRESE UNA CIUDAD VALIDA`); //modificamos la estrucutra convencional del "if" a una sintaxis mas reducida, reduciendo líneas de código y mejorando la legibilidad. 
 } 
 
 
@@ -42,6 +42,15 @@ function cambiarPantalla(){
     let wrapper = document.querySelector(".wrapper");
     wrapper.classList.toggle("active");
 } 
+
+function mostrarToast(texto){
+    Toastify({
+        text: texto,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "linear-gradient(to right, #ff4137, #ff4137)",
+      }).showToast();
+}
  
 let button = document.getElementById("button");
 button.addEventListener("click", (e)=>{
@@ -51,14 +60,13 @@ button.addEventListener("click", (e)=>{
         } else {
             let ciudad = buscarCiudad(resultado);
             if (ciudad == undefined){
-                return alert(`No se encontró esa ciudad`);
+                mostrarToast("NO SE ENCONTRÓ LA CIUDAD");
             } else{
                 mostrarHTML(ciudad);
                 cambiarPantalla();
             }
         }
     })
-
 
 let arrow = document.getElementById("arrow");
 arrow.addEventListener("click", cambiarPantalla);
