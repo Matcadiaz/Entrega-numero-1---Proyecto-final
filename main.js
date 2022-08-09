@@ -19,7 +19,7 @@ function buscarCiudad(ciudad){
 
 function pedirCiudad(){ 
     let input = document.getElementById("input");
-    return input.value !== "" ? input.value.toLowerCase() : mostrarToast(`INGRESE UNA CIUDAD VALIDA`); //modificamos la estrucutra convencional del "if" a una sintaxis mas reducida, reduciendo líneas de código y mejorando la legibilidad. 
+    return input.value !== "" ? input.value.toLowerCase() : mostrarToast(`INGRESE UNA CIUDAD VALIDA`); 
 } 
 
 
@@ -43,7 +43,7 @@ function cambiarPantalla(){
     wrapper.classList.toggle("active");
 } 
 
-function mostrarToast(texto){
+function mostrarToast(texto){ //creamos la función que nos permita mostrar el toastify, ya que de esta manera si queremos modificar algo de la misma, lo haremos dentro de la función y se aplicará en cualquier lado que la llamemos. 
     Toastify({
         text: texto,
         gravity: "top",
