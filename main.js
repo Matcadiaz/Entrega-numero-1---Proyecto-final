@@ -1,5 +1,8 @@
 // ---- FUNCIONES------//
 
+
+//Se ah modificado la funcion buscarCiudad para que la misma anos devuelva un objeto como información pedida. La misma nos va a servir para mostrar con mayor facilidad los datos pedidos desde la API.
+
 function buscarCiudad(ciudad){
     return fetch(`http://api.weatherapi.com/v1/current.json?key=0b0585a3e5b643db821230808221508&q=${ciudad}`)
     .then(response => response.json())
@@ -68,6 +71,8 @@ button.addEventListener("click", (e)=>{
 let arrow = document.getElementById("arrow");
 arrow.addEventListener("click", cambiarPantalla);
 
+
+//Se agregó el evento dentro del input, en el cual permitirá sugerir algunas ciudades relacionadas a la busqueda, con el fin de que la misma sea lo mas concreta posible.  
 
 input.addEventListener("keyup", (e)=>{
 
