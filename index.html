@@ -20,7 +20,8 @@
                 <div class="contenedor__formulario">
                     <form class="formulario">
                         <p class="validar">Ingrese una ciudad válida</p>
-                        <input type="text" id="input" placeholder="Ingrese una ciudad" spellcheck="false" required>
+                        <input list="sugerencias" type="text" id="input" placeholder="Ingrese una ciudad" spellcheck="false" required>
+                        <datalist id="sugerencias"> </datalist>
                         <button type="button" id="button">Enviar</button>
                     </form> 
                 </div>
@@ -29,10 +30,10 @@
             <section class="parte-clima">
                 <img src="/icons/clear.svg" alt="icono de clima"> 
                 <div class="temperatura">
-                    <span class="numero" id="temMax"></span>
+                    <span class="numero" id="temp"></span>
                     <span class="grados">°</span>C
                 </div> 
-                <div class="clima">Temperatura Max.</div>
+                <div class="clima">Temperatura.</div>
                 <div class="ubicacion">
                     <i class="bx bx-map"></i>
                     <span id="ubi"></span>
@@ -42,10 +43,10 @@
                         <i class="bx bxs-thermometer"></i>
                         <div class="details">
                             <div class="temperatura">
-                                <span class="numero" id="temMin"></span>
+                                <span class="numero" id="sensacionTer"></span>
                                 <span class="grados">°</span>C
                             </div>
-                            <p>Temperatura Min.</p> 
+                            <p>Sensación Térmica</p> 
                         </div>
                     </div>
                     <div class="columna humedad">
