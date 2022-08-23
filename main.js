@@ -10,7 +10,8 @@ function buscarCiudad(ciudad){
         ciudad: `${result.location.name}, ${result.location.region}`,
         temp: `${result.current.temp_c}`,
         sensacionTer: `${result.current.feelslike_c}`,
-        hum: `${result.current.humidity}`
+        hum: `${result.current.humidity}`,
+        icon: `${result.current.condition.icon}`
     }})
 }  
 
@@ -33,6 +34,10 @@ function mostrarHTML (ciudad){
 
     let humedad = document.getElementById("hum");
     humedad.innerHTML = ciudad.hum;
+
+    let icono = document.getElementById("icono");
+    icono.innerHTML = `<img src="${ciudad.icon}" alt="icono del clima">`;
+
 }
 
 

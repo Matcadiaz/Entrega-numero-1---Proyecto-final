@@ -156,7 +156,8 @@ h1 i{
 }
 
 .parte-clima img{
-    max-width: 125px;
+    width: 100px;
+    height: 100px;
 }
 
 .parte-clima .temperatura{
