@@ -1,6 +1,6 @@
 // ---- FUNCIONES------//
 
-//Función para que evalúe lo ingresado en el campo input
+//Función para que evalúe lo ingresado en el campo de búsqueda
 
 let input = document.getElementById("input"); 
 
@@ -108,3 +108,4 @@ input.addEventListener("keyup", (e)=>{
         sug.innerHTML = "";
     }
 })
+    
