@@ -1,7 +1,14 @@
 // ---- FUNCIONES------//
 
+//Función para que evalúe lo ingresado en el campo input
 
-//Se ah modificado la funcion buscarCiudad para que la misma anos devuelva un objeto como información pedida. La misma nos va a servir para mostrar con mayor facilidad los datos pedidos desde la API.
+let input = document.getElementById("input"); 
+
+function pedirCiudad(){ 
+    return input.value !== "" ? input.value.toLowerCase() : mostrarToast(`INGRESE UNA CIUDAD VALIDA`); 
+} 
+
+//Función que me permite buscar la ciudad ingresada y que me devuelva los datos necesarios para luego mostrar en pantalla. 
 
 function buscarCiudad(ciudad){
     return fetch(`http://api.weatherapi.com/v1/current.json?key=0b0585a3e5b643db821230808221508&q=${ciudad}`)
@@ -15,12 +22,7 @@ function buscarCiudad(ciudad){
     }})
 }  
 
-let input = document.getElementById("input"); 
-
-function pedirCiudad(){ 
-    return input.value !== "" ? input.value.toLowerCase() : mostrarToast(`INGRESE UNA CIUDAD VALIDA`); 
-} 
-
+//Función que permite postrar en pantallo lo arrojado por la request de la función buscarCiudad()
 
 function mostrarHTML (ciudad){
     let ubicacion = document.getElementById("ubi");
@@ -40,12 +42,14 @@ function mostrarHTML (ciudad){
 
 }
 
-
+//Función que permite el intercambio de pantallas cuando encuentra la ciudad y devuelve los datos para mostrarlos. 
 
 function cambiarPantalla(){
     let wrapper = document.querySelector(".wrapper");
     wrapper.classList.toggle("active");
 } 
+
+//Función para configurar el toasty
 
 function mostrarToast(texto){ 
     Toastify({
@@ -57,6 +61,10 @@ function mostrarToast(texto){
 }
 
  
+//-------EVENTOS--------//
+
+//Evento que nos permite analizar la ciudad ingresada, y devolver los datos pedidos y mostrarlos en la pantalla. 
+
 let button = document.getElementById("button");
 button.addEventListener("click", (e)=>{
         let resultado = pedirCiudad();
@@ -73,11 +81,12 @@ button.addEventListener("click", (e)=>{
         }
     })
 
+//Evento para volver hacia la pantalla de búsqueda, una vez arrojado los datos.
+    
 let arrow = document.getElementById("arrow");
 arrow.addEventListener("click", cambiarPantalla);
 
-
-//Se agregó el evento dentro del input, en el cual permitirá sugerir algunas ciudades relacionadas a la busqueda, con el fin de que la misma sea lo mas concreta posible.  
+//Evento para autocompletar el campo de búsqueda una vez que supera la cantidad de 3 caracteres 
 
 input.addEventListener("keyup", (e)=>{
 
