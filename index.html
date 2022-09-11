@@ -14,50 +14,25 @@
 </head>
 <body>
     <div class="body-wrapper">
-        <div class="wrapper"> 
-            <h1><i class="bx bx-left-arrow-alt" id="arrow"></i>Weather app</h1>
+        <div class="wrapper" id="wrapper"> 
+            <div class="titulo">
+                <i class="bx bx-left-arrow-alt off" id="arrow"></i>Weather app</h1>
+            </div>
+            
+
+            <div class="off" id="cartas"></div>
+
             <section class="contenedor" id="section" >
                 <div class="contenedor__formulario">
-                    <form class="formulario">
-                        <p class="validar">Ingrese una ciudad válida</p>
-                        <input list="sugerencias" type="text" id="input" placeholder="Ingrese una ciudad" spellcheck="false" required>
+                    <div class="formulario">
+                        <input list="sugerencias" type="text" id="input" placeholder="Ingrese una ciudad" spellcheck="false">
                         <datalist id="sugerencias"> </datalist>
                         <button type="button" id="button">Enviar</button>
-                    </form> 
+                    </div> 
                 </div>
             </section>
 
-            <section class="parte-clima">
-                <div id="icono"></div>
-                <div class="temperatura">
-                    <span class="numero" id="temp"></span>
-                    <span class="grados">°</span>C
-                </div> 
-                <div class="clima">Temperatura.</div>
-                <div class="ubicacion">
-                    <i class="bx bx-map"></i>
-                    <span id="ubi"></span>
-                </div>
-                <div class="fondo">
-                    <div class="columna sensacion">
-                        <i class="bx bxs-thermometer"></i>
-                        <div class="details">
-                            <div class="temperatura">
-                                <span class="numero" id="sensacionTer"></span>
-                                <span class="grados">°</span>C
-                            </div>
-                            <p>Sensación Térmica</p> 
-                        </div>
-                    </div>
-                    <div class="columna humedad">
-                        <i class="bx bxs-droplet-half"></i>
-                        <div class="details">
-                            <span class="numero" id="hum"></span>%
-                            <p>Humedad</p> 
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <div class="titulo off" id="addButton"><i class="bx bxs-plus-circle" id="arrow"></i><div>
         </div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

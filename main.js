@@ -11,7 +11,7 @@ function pedirCiudad(){
 //Función que me permite buscar la ciudad ingresada y que me devuelva los datos necesarios para luego mostrar en pantalla. 
 
 function buscarCiudad(ciudad){
-    return fetch(`http://api.weatherapi.com/v1/current.json?key=0b0585a3e5b643db821230808221508&q=${ciudad}`)
+    return fetch(`http://api.weatherapi.com/v1/current.json?key=1a6e64a6e40b4e20aea230913221009&q=${ciudad}`)
     .then(response => response.json())
     .then(result => {return {
         ciudad: `${result.location.name}, ${result.location.region}`,
@@ -25,29 +25,47 @@ function buscarCiudad(ciudad){
 //Función que permite postrar en pantallo lo arrojado por la request de la función buscarCiudad()
 
 function mostrarHTML (ciudad){
-    let ubicacion = document.getElementById("ubi");
-    ubicacion.innerHTML= ciudad.ciudad;
+ 
+    let newCard = `<section class="parte-clima">
+        <div id="icono">
+            <img src="${ciudad.icon}" alt="icono del clima">
+        </div>
+        <div class="temperatura">
+            <span class="numero">${ciudad.temp}</span>
+            <span class="grados">°</span>C
+        </div> 
+        <div class="clima">Temperatura.</div>
+        <div class="ubicacion">
+            <i class="bx bx-map"></i>
+            <span>${ciudad.ciudad}</span>
+        </div>
+        <div class="titulo">
+            <i class='bx bxs-x-circle' onclick="eliminarCarta(event)"></i>
+        </div>
+        <div class="fondo">
+            <div class="columna sensacion">
+                <i class="bx bxs-thermometer"></i>
+                <div class="details">
+                    <div class="temperatura">
+                        <span class="numero">${ciudad.sensacionTer}</span>
+                        <span class="grados">°</span>C
+                    </div>
+                    <p>Sensación Térmica</p> 
+                </div>
+            </div>
+            <div class="columna humedad">
+                <i class="bx bxs-droplet-half"></i>
+                <div class="details">
+                    <span class="numero">${ciudad.hum}</span>%
+                    <p>Humedad</p> 
+                </div>
+            </div>
+        </div>
+        </section>`
 
-    let tempMax = document.getElementById("temp");
-    tempMax.innerHTML = ciudad.temp;
-    
-    let tempMin = document.getElementById("sensacionTer");
-    tempMin.innerHTML = ciudad.sensacionTer;
-
-    let humedad = document.getElementById("hum");
-    humedad.innerHTML = ciudad.hum;
-
-    let icono = document.getElementById("icono");
-    icono.innerHTML = `<img src="${ciudad.icon}" alt="icono del clima">`;
-
+    document.getElementById("cartas").innerHTML += newCard;
 }
 
-//Función que permite el intercambio de pantallas cuando encuentra la ciudad y devuelve los datos para mostrarlos. 
-
-function cambiarPantalla(){
-    let wrapper = document.querySelector(".wrapper");
-    wrapper.classList.toggle("active");
-} 
 
 //Función para configurar el toasty
 
@@ -60,6 +78,32 @@ function mostrarToast(texto){
       }).showToast();
 }
 
+function mostrarCartas(){
+    document.getElementById("section").style.display = "none";
+    document.getElementById("cartas").classList.remove("off");
+    document.getElementById("addButton").classList.remove("off");
+    document.getElementById("arrow").classList.remove("off");
+}
+
+function mostrarDatos(){
+    let resultado = pedirCiudad();
+    if (resultado == undefined){
+        return
+    } else {
+        buscarCiudad(resultado)
+        .then(ciudad => {
+            localStorage.setItem("favoritos", resultado);
+            mostrarCartas();
+            mostrarHTML(ciudad);
+        })
+
+        .catch( p => mostrarToast("NO SE ENCONTRÓ LA CIUDAD"));
+    }
+}
+
+function eliminarCarta(e){
+    e.target.parentNode.parentNode.remove()
+}
  
 //-------EVENTOS--------//
 
@@ -67,45 +111,60 @@ function mostrarToast(texto){
 
 let button = document.getElementById("button");
 button.addEventListener("click", (e)=>{
-        let resultado = pedirCiudad();
-        if (resultado == undefined){
-            return
-        } else {
-            buscarCiudad(resultado)
-            .then(ciudad => {
-                mostrarHTML(ciudad);
-                cambiarPantalla();
-            })
-
-            .catch( p => mostrarToast("NO SE ENCONTRÓ LA CIUDAD"));
-        }
+       mostrarDatos();
     })
 
 //Evento para volver hacia la pantalla de búsqueda, una vez arrojado los datos.
     
 let arrow = document.getElementById("arrow");
-arrow.addEventListener("click", cambiarPantalla);
+arrow.addEventListener("click", (e)=>{
+    document.getElementById("cartas").classList.add("off");
+    document.getElementById("cartas").innerHTML = "";
+    document.getElementById("section").style.display = "";
+    document.getElementById("addButton").classList.add("off");
+
+});
 
 //Evento para autocompletar el campo de búsqueda una vez que supera la cantidad de 3 caracteres 
 
 input.addEventListener("keyup", (e)=>{
 
-    let target = e.target
-    let cantidad = target.value.length;
-    let sug = document.getElementById("sugerencias");
-    if ( cantidad >= 3){
-       fetch(`https://api.weatherapi.com/v1/search.json?key=0b0585a3e5b643db821230808221508&q=${e.target.value}`)
-       .then(response => response.json())
-       .then(result => {
-        sug.innerHTML="";
-        result.forEach(element => {
-            sug.innerHTML += `
-                <option value = "${element.name},${element.region},${element.country}"> 
-            `
-        });   
-    });
-    } else {
-        sug.innerHTML = "";
+    if(e.key == "Enter" && input.value != ""){
+        mostrarDatos();
+    }else{
+        let target = e.target
+        let cantidad = target.value.length;
+        let sug = document.getElementById("sugerencias");
+        if( cantidad >= 3){
+           fetch(`https://api.weatherapi.com/v1/search.json?key=1a6e64a6e40b4e20aea230913221009&q=${e.target.value}`)
+           .then(response => response.json())
+           .then(result => {
+            sug.innerHTML="";
+            result.forEach(element => {
+                sug.innerHTML += `
+                    <option value = "${element.name},${element.region},${element.country}"> 
+                `
+            });   
+        });
+        } else {
+            sug.innerHTML = "";
+        }
     }
 })
-    
+
+let addButton = document.getElementById("addButton");
+addButton.addEventListener("click", (e) => {
+    document.getElementById("section").style.display = "";
+    document.getElementById("addButton").classList.add("off");
+})
+
+//------- LOCALSTORAGE ---------
+
+if (localStorage.getItem("favoritos") != null){
+    buscarCiudad(localStorage.getItem("favoritos"))
+    .then(ciudad => {
+        mostrarHTML(ciudad);
+        mostrarCartas();
+    })
+}
+
