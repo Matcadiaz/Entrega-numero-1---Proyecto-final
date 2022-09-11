@@ -35,14 +35,68 @@
     box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
 }
 
+.cancelParent{
+    display: flex;
+    justify-content: flex-end;
+    width: 350px;
+    padding: 0;
+    margin: 0;
+}
 
+.cancel{
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 16px 15px;
+    color: rgba(243, 6, 57, 0.541);
+    padding: 0;
+    margin: 0;
+    align-items: flex-end;
+}
+
+.cancel i{
+    font-size: 2rem;
+}
+
+.plus{
+    display: flex;
+    justify-content: center;
+    color: rgba(102, 179, 50, 0.774);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+}
+
+.botonMas{
+    
+}
 
 .titulo i{
-    cursor: pointer;
-    font-size: 3rem;
     margin-right: 20px;
 }
 
+i{
+    cursor: pointer;
+    font-size: 2.5rem;
+}
+
+.tooltip{
+    display: none;
+    background-color: rgba(12, 9, 163, 0.445);
+    font-size: 1.5rem;
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+    position: absolute;
+    z-index: 1000;
+    width: auto;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.cancel:hover .tooltip, .botonMas:hover .tooltip{
+    display: block;
+}
 
 
 .wrapper .contenedor {
@@ -53,7 +107,7 @@
     background-color: white;
     border-radius: 7px;
     box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
-    
+    margin-top: 10px; 
 }
 
 .contenedor__formulario{
@@ -119,6 +173,7 @@
     padding-top: 20px;
     border-radius: 7px;
     box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
 }
 
 

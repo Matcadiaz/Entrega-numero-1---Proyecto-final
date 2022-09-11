@@ -27,9 +27,16 @@ function buscarCiudad(ciudad){
 function mostrarHTML (ciudad){
  
     let newCard = `<section class="parte-clima">
+        <div class ="cancelParent">
+        <div class="cancel">
+            <i class='bx bxs-x-circle' onclick="eliminarCarta(event)"></i>
+            <span class="tooltip">Eliminar carta</span>
+        </div>
+        </div>
         <div id="icono">
             <img src="${ciudad.icon}" alt="icono del clima">
         </div>
+
         <div class="temperatura">
             <span class="numero">${ciudad.temp}</span>
             <span class="grados">°</span>C
@@ -39,9 +46,7 @@ function mostrarHTML (ciudad){
             <i class="bx bx-map"></i>
             <span>${ciudad.ciudad}</span>
         </div>
-        <div class="titulo">
-            <i class='bx bxs-x-circle' onclick="eliminarCarta(event)"></i>
-        </div>
+        
         <div class="fondo">
             <div class="columna sensacion">
                 <i class="bx bxs-thermometer"></i>
@@ -102,7 +107,7 @@ function mostrarDatos(){
 }
 
 function eliminarCarta(e){
-    e.target.parentNode.parentNode.remove()
+    e.target.parentNode.parentNode.parentNode.remove()
 }
  
 //-------EVENTOS--------//
@@ -122,7 +127,7 @@ arrow.addEventListener("click", (e)=>{
     document.getElementById("cartas").innerHTML = "";
     document.getElementById("section").style.display = "";
     document.getElementById("addButton").classList.add("off");
-
+    document.getElementById("arrow").classList.add("off");
 });
 
 //Evento para autocompletar el campo de búsqueda una vez que supera la cantidad de 3 caracteres 
@@ -152,11 +157,12 @@ input.addEventListener("keyup", (e)=>{
     }
 })
 
-let addButton = document.getElementById("addButton");
-addButton.addEventListener("click", (e) => {
+let buttonPlus= document.getElementById("buttonPlus");
+buttonPlus.addEventListener("click", (e) => {
     document.getElementById("section").style.display = "";
     document.getElementById("addButton").classList.add("off");
 })
+
 
 //------- LOCALSTORAGE ---------
 
